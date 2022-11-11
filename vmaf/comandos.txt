@@ -1,3 +1,0 @@
-ffmpeg -i distorted.mp4 -i original.mp4 -filter_complex libvmaf -f null -
-
-ffmpeg -i distorted.mp4 -i original.mp4 -filter_complex “[0:v]scale=1920:1080[distorted];[distorted][1:v]libvmaf” -f null -
