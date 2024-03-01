@@ -35,18 +35,11 @@ def salvar(nome_arquivo, texto):
             file.close()
 
 
-# parâmetros do Script
-diretorio = '/home/'
-cont = 12
-quant = 16
-
-
 def assistirVideo(diretorio, nome_video):
     EscreveLog("iniciada função assistir video", "/home/log.log")
-    start = datetime.datetime.now()
-    os.system(
-        "ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc /home/" +nome_video)
-    end = datetime.datetime.now()
+    start = str(datetime.datetime.now())
+    os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    end = str(datetime.datetime.now())
 
     return start,end
 
@@ -61,6 +54,12 @@ def medirQoE(diretorio, nome_video, nome_json):
     return value_qoe
 
 
+# parâmetros do Script
+diretorio = '/home/'
+cont = 12
+quant = 16
+
+
 while cont < quant:
 
     # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
@@ -73,16 +72,11 @@ while cont < quant:
 
     EscreveLog("nome do video: "+ nome_video, "/home/log.log")
 
-    #start,end = assistirVideo(diretorio,nome_video)
-
-    start = datetime.datetime.now()
-    os.system(
-        "ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc /home/" + nome_video)
-    end = datetime.datetime.now()
+    start,end = assistirVideo(diretorio,nome_video)
 
 
-    EscreveLog("start: " + str(start), "/home/log.log")
-    EscreveLog("end: " + str(end), "/home/log.log")
+    EscreveLog("start: " + start, "/home/log.log")
+    EscreveLog("end: " + end, "/home/log.log")
 
     EscreveLog("video assistido", "/home/log.log")
 
@@ -90,8 +84,7 @@ while cont < quant:
 
     EscreveLog("qoe: " + value_qoe, "/home/log.log")
 
-    os.system(
-        'ffprobe -v quiet -print_format json -show_format -show_frames /home/"' + nome_video + '" > "/home/' + nome_video + '.json"')
+    os.system('ffprobe -v quiet -print_format json -show_format -show_frames /home/"' + nome_video + '" > "/home/' + nome_video + '.json"')
 
     with open(diretorio + nome_video + ".json") as file:
         data_probe = json.load(file)
@@ -116,7 +109,7 @@ while cont < quant:
                 nao_achou = False
 
 
-    linha = (str(start) + "," + str(end) + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + value_qoe)
+    linha = (start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + value_qoe)
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
     time.sleep(2)
