@@ -38,7 +38,8 @@ def salvar(nome_arquivo, texto):
 def assistirVideo(diretorio, nome_video):
     #EscreveLog("iniciada função assistir video", "/home/log.log")
     start = str(datetime.datetime.now())
-    os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    # os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
     end = str(datetime.datetime.now())
 
     return start,end
