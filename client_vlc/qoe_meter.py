@@ -1,4 +1,4 @@
-# Versão 1.5
+# Versão 1.6
 # Sidney Loyola de Sá
 import datetime
 import json
@@ -6,6 +6,7 @@ import time
 import os
 from pathlib import Path
 from datetime import date
+
 
 def EscreveLog(mensagem, arquivo):
     try:
@@ -15,6 +16,7 @@ def EscreveLog(mensagem, arquivo):
 
     except:
         print("Erro na Escrita:" + arquivo + " " + mensagem + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}")
+
 
 def salvar(nome_arquivo, texto):
     try:
@@ -36,18 +38,19 @@ def salvar(nome_arquivo, texto):
 
 
 def assistirVideo(diretorio, nome_video):
-    #EscreveLog("iniciada função assistir video", "/home/log.log")
+    # EscreveLog("iniciada função assistir video", "/home/log.log")
     start = str(datetime.datetime.now())
-    # os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-    os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    os.system(
+        "ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    # os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
     end = str(datetime.datetime.now())
 
-    return start,end
+    return start, end
 
 
 def medirQoE(diretorio, nome_video, nome_json):
-    #EscreveLog("iniciada função medir qoe", "/home/log.log")
-    os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio  + nome_json)
+    # EscreveLog("iniciada função medir qoe", "/home/log.log")
+    os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio + nome_json)
 
     with open(diretorio + nome_json) as file:
         data = json.load(file)
@@ -56,8 +59,9 @@ def medirQoE(diretorio, nome_video, nome_json):
 
 
 def capturarDadosVideo(diretorio, nome_video):
-    #EscreveLog("iniciada função capturar_dados_videos", "/home/log.log")
-    os.system('ffprobe -v quiet -print_format json -show_format -show_frames "' + diretorio + nome_video + '" > "' + diretorio + nome_video + '.json"')
+    # EscreveLog("iniciada função capturar_dados_videos", "/home/log.log")
+    os.system(
+        'ffprobe -v quiet -print_format json -show_format -show_frames "' + diretorio + nome_video + '" > "' + diretorio + nome_video + '.json"')
 
     with open(diretorio + nome_video + ".json") as file:
         data_probe = json.load(file)
@@ -66,6 +70,7 @@ def capturarDadosVideo(diretorio, nome_video):
     size = data_probe['format']['size']
     bitrate = data_probe['format']['bit_rate']
     frames = str(len(data_probe['frames']))
+    EscreveLog(str(data_probe['frames']), diretorio + nome_video + "_frames.json")
     width = "-"
     height = "-"
 
@@ -84,19 +89,27 @@ def capturarDadosVideo(diretorio, nome_video):
     return start_time, duration, size, bitrate, frames, width, height
 
 
-def inserirDataset(diretorio, nome_csv,start, end, nome_video, start_time, duration, size, bitrate, frames, width, height, value_qoe):
-    linha = (start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + value_qoe)
+def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,
+                   height, value_qoe):
+    linha = (
+                start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + value_qoe)
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
 
 
-#parâmetros do Script
+def apagarArquivos(diretorio, nome_json, nome_video):
+    os.system("sudo rm " + diretorio + nome_json)
+    os.system("sudo rm " + diretorio + nome_video)
+    os.system("sudo rm " + diretorio + nome_video + ".json")
+    os.system("sudo rm " + diretorio + nome_video + "_frames.json")
+
+
+# parâmetros do Script
 diretorio = '/home/'
-cont = 12
-quant = 16
+cont = 1
+quant = 4
 
 while cont < quant:
-
     # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
     complemento = str(cont)
     cont = cont + 1
@@ -104,12 +117,14 @@ while cont < quant:
     nome_json = "qoe_" + complemento + ".json"
     nome_csv = "qoe_value.csv"
 
-    start,end = assistirVideo(diretorio,nome_video)
+    start, end = assistirVideo(diretorio, nome_video)
 
-    value_qoe = medirQoE(diretorio,nome_video,nome_json)
+    value_qoe = medirQoE(diretorio, nome_video, nome_json)
 
-    start_time,duration,size,bitrate,frames,width,height = capturarDadosVideo(diretorio,nome_video)
+    start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
 
-    inserirDataset(diretorio,nome_csv,start,end,nome_video,start_time,duration,size,bitrate,frames,width,height,value_qoe)
+    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,
+                   height, value_qoe)
+    apagarArquivos(diretorio, nome_json, nome_video)
 
     time.sleep(2)
