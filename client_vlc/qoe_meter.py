@@ -91,9 +91,9 @@ def capturarDadosVideo(diretorio, nome_video):
 
     return start_time, duration, size, bitrate, frames, width, height
 
-def capturar_dados_rede(ip,diretorio):
+def capturar_dados_rede(ip,diretorio,nome_ping):
     #EscreveLog("iniciada função capturar_dados_rede", "/home/log.log")
-    os.system("ping -c 4 " + ip + " > " + diretorio + "ping.txt")
+    os.system("ping -c 4 " + ip + " > " + diretorio + nome_ping)
 
     rtt_min = ""
     rtt_avg = ""
@@ -105,7 +105,7 @@ def capturar_dados_rede(ip,diretorio):
 
 
     try:
-        with open(diretorio+'ping.txt', 'r') as arquivo:
+        with open(diretorio+nome_ping, 'r') as arquivo:
             linhas = arquivo.readlines()
             cont = 0
 
@@ -152,7 +152,7 @@ def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, dura
 
 
 def apagarArquivos(diretorio, nome_json, nome_video):
-    os.system("sudo rm " + diretorio + "ping.txt")
+    #os.system("sudo rm " + diretorio + "ping.txt")
     os.system("sudo rm " + diretorio + nome_json)
     os.system("sudo rm " + diretorio + nome_video)
     os.system("sudo rm " + diretorio + nome_video + ".json")
@@ -173,6 +173,7 @@ while cont < quant:
     nome_video = "video_" + complemento + ".mp4"
     nome_json = "qoe_" + complemento + ".json"
     nome_csv = "qoe_value.csv"
+    nome_ping = "ping_" + complemento + ".txt"
 
     start, end = assistirVideo(diretorio, nome_video)
 
@@ -180,7 +181,7 @@ while cont < quant:
 
     start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
 
-    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(ip,diretorio)
+    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(ip,diretorio,nome_ping)
 
     inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe)
     apagarArquivos(diretorio, nome_json, nome_video)
