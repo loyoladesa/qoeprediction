@@ -23,7 +23,7 @@ def EscreveLog(mensagem, arquivo):
 
 
 def salvar(nome_arquivo, texto):
-    EscreveLog("iniciada função salvar", "/home/log.log")
+    #EscreveLog("iniciada função salvar", "/home/log.log")
     try:
         if os.path.isfile(nome_arquivo):
             with open(nome_arquivo, "a") as file:
@@ -43,9 +43,9 @@ def salvar(nome_arquivo, texto):
 
 
 def assistirVideo(diretorio, nome_video):
-    EscreveLog("iniciada função assistir video", "/home/log.log")
+    #EscreveLog("iniciada função assistir video", "/home/log.log")
     start = str(datetime.datetime.now())
-    os.system("ffmpeg -i https://4ec7-189-84-93-121.ngrok-free.app/hls/transformers_720p.mp4/master.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    os.system("ffmpeg -i https://qoernp.ngrok.app/hls/transformers_360p.mp4/master.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
     # os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
     end = str(datetime.datetime.now())
 
@@ -53,7 +53,7 @@ def assistirVideo(diretorio, nome_video):
 
 
 def medirQoE(diretorio, nome_video, nome_json):
-    EscreveLog("iniciada função medir qoe", "/home/log.log")
+    #EscreveLog("iniciada função medir qoe", "/home/log.log")
     os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio + nome_json)
 
     with open(diretorio + nome_json) as file:
@@ -63,7 +63,7 @@ def medirQoE(diretorio, nome_video, nome_json):
 
 
 def capturarDadosVideo(diretorio, nome_video):
-    EscreveLog("iniciada função capturar_dados_videos", "/home/log.log")
+    #EscreveLog("iniciada função capturar_dados_videos", "/home/log.log")
     os.system('ffprobe -v quiet -print_format json -show_format -show_frames "' + diretorio + nome_video + '" > "' + diretorio + nome_video + '.json"')
 
     with open(diretorio + nome_video + ".json") as file:
@@ -92,7 +92,7 @@ def capturarDadosVideo(diretorio, nome_video):
     return start_time, duration, size, bitrate, frames, width, height
 
 def capturar_dados_rede(ip,diretorio):
-    EscreveLog("iniciada função capturar_dados_rede", "/home/log.log")
+    #EscreveLog("iniciada função capturar_dados_rede", "/home/log.log")
     os.system("ping -c 4 " + ip + " > " + diretorio + "ping.txt")
 
     rtt_min = ""
@@ -144,7 +144,7 @@ def capturar_dados_rede(ip,diretorio):
 
 
 def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe):
-    EscreveLog("iniciada função inserir_dataset", "/home/log.log")
+    #EscreveLog("iniciada função inserir_dataset", "/home/log.log")
     linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe
     #linha2 = rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_perdidos + "," + pacotes_recebidos + "," + ttl + ","
     nome_arquivo = diretorio + nome_csv
@@ -163,9 +163,10 @@ def apagarArquivos(diretorio, nome_json, nome_video):
 diretorio = '/home/'
 ip = "189.84.93.121"
 cont = 1
-quant = 2
+quant = 20
 
 while cont < quant:
+    EscreveLog("iniciado processo de medir qoe", "/home/log.log")
     # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
     complemento = str(cont)
     cont = cont + 1
@@ -183,5 +184,6 @@ while cont < quant:
 
     inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe)
     apagarArquivos(diretorio, nome_json, nome_video)
+    EscreveLog("Complemento = " + complemento, "/home/log.log")
 
-    time.sleep(10)
+    time.sleep(60)
