@@ -17,7 +17,7 @@ def capturar_dados_rede():
 
 
     try:
-        with open('ping.txt', 'r') as arquivo:
+        with open('ping2.txt', 'r') as arquivo:
             linhas = arquivo.readlines()
             cont = 0
 
@@ -54,13 +54,13 @@ def capturar_dados_rede():
 
 
 rtt_min,rtt_avg,rtt_max, pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl = capturar_dados_rede()
-print(f"rtt_min = {rtt_min}")
-print(f"rtt_avg = {rtt_avg}")
-print(f"rtt_max = {rtt_max}")
-print(f"ttl = {ttl}")
-print(f"packets_transmitted = {pacotes_transmitidos}")
-print(f"packets_received = {pacotes_recebidos}")
-print(f"packets_lost = {pacotes_perdidos}")
+print(f"rtt_min = {rtt_min} {type(rtt_min)}")
+print(f"rtt_avg = {rtt_avg} {type(rtt_avg)}")
+print(f"rtt_max = {rtt_max} {type(rtt_max)}")
+print(f"ttl = {ttl} {type(ttl)}")
+print(f"packets_transmitted = {pacotes_transmitidos} {type(pacotes_transmitidos)}")
+print(f"packets_received = {pacotes_recebidos} {type(pacotes_recebidos)}")
+print(f"packets_lost = {pacotes_perdidos} {type(pacotes_perdidos)}")
 
 
 

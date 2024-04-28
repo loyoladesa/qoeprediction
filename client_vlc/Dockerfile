@@ -32,8 +32,6 @@ RUN pip3 install git+https://github.com/itu-p1203/itu-p1203
 
 WORKDIR /app/
 
-COPY versao.txt /app
-
 COPY qoe_meter.py /app
 
 
