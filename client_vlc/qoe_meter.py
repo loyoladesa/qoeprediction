@@ -1,5 +1,9 @@
-# Versão 1.6
-# Sidney Loyola de Sá
+
+# Autor : Sidney Loyola de Sá
+# Projeto Desenvolvido para Analisar QoE a partir de dados de QoS
+# Utilizando Grafos de Causalidade
+
+
 import datetime
 import json
 import time
@@ -26,7 +30,7 @@ def salvar(nome_arquivo, texto):
                 file.close()
         else:
             with open(nome_arquivo, "a") as file:
-                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,qoe_value" + "\n")
+                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl,qoe_value" + "\n")
                 file.write(texto + "\n")
                 file.close()
 
@@ -59,8 +63,7 @@ def medirQoE(diretorio, nome_video, nome_json):
 
 def capturarDadosVideo(diretorio, nome_video):
     # EscreveLog("iniciada função capturar_dados_videos", "/home/log.log")
-    os.system(
-        'ffprobe -v quiet -print_format json -show_format -show_frames "' + diretorio + nome_video + '" > "' + diretorio + nome_video + '.json"')
+    os.system('ffprobe -v quiet -print_format json -show_format -show_frames "' + diretorio + nome_video + '" > "' + diretorio + nome_video + '.json"')
 
     with open(diretorio + nome_video + ".json") as file:
         data_probe = json.load(file)
@@ -87,16 +90,66 @@ def capturarDadosVideo(diretorio, nome_video):
 
     return start_time, duration, size, bitrate, frames, width, height
 
+def capturar_dados_rede(ip,diretorio):
+    os.system("ping -c 4 " + ip + " > " + diretorio + "ping.txt")
+
+    rtt_min = 0
+    rtt_avg = 0
+    rtt_max = 0
+    pacotes_transmitidos = 0
+    pacotes_recebidos = 0
+    pacotes_perdidos = 0
+    ttl = 0
+
+
+    try:
+        with open('ping.txt', 'r') as arquivo:
+            linhas = arquivo.readlines()
+            cont = 0
+
+            for linha in linhas:
+
+                if linha[0:3] == "rtt":
+                    detalhes = linha.strip().split('/')
+                    rtt_min = detalhes[3]
+                    rtt_min = rtt_min[7:]
+                    rtt_avg = detalhes[4]
+                    rtt_max = detalhes[5]
+                elif linha[0] == "4":
+                    detalhes = linha.strip().split(',')
+                    pacotes_transmitidos = linha[0]
+                    pacotes_recebidos = detalhes[1]
+                    pacotes_recebidos = pacotes_recebidos[1]
+                    pacotes_perdidos = detalhes[2]
+                    index_porcentagem = pacotes_perdidos.find("%")
+                    pacotes_perdidos = pacotes_perdidos[1:index_porcentagem]
+                else:
+                    detalhes = linha.strip().split(' ')
+                    #print(detalhes[0])
+                    if (detalhes[0] == "PING"):
+                        cont = cont + 1
+                    elif detalhes[0] != "PING" and cont == 1:
+                        ttl = detalhes[5][4:]
+                        cont = cont + 1
+
+    except Exception as erro:
+        print('Ocorreu um erro...')
+        print(erro)
+
+    return rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl
+
+
+
 
 def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,
-                   height, value_qoe):
-    linha = (
-                start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + value_qoe)
+                   height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe):
+    linha = (start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_perdidos + "," + pacotes_recebidos + "," + ttl + "," + value_qoe)
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
 
 
 def apagarArquivos(diretorio, nome_json, nome_video):
+    os.system("sudo rm " + diretorio + "ping.txt")
     os.system("sudo rm " + diretorio + nome_json)
     os.system("sudo rm " + diretorio + nome_video)
     os.system("sudo rm " + diretorio + nome_video + ".json")
@@ -105,14 +158,15 @@ def apagarArquivos(diretorio, nome_json, nome_video):
 
 # parâmetros do Script
 diretorio = '/home/'
+ip = "189.84.93.121"
 cont = 1
-quant = 4
+quant = 2
 
 while cont < quant:
     # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
     complemento = str(cont)
     cont = cont + 1
-    nome_video = "source_" + complemento + ".mp4"
+    nome_video = "video_" + complemento + ".mp4"
     nome_json = "qoe_" + complemento + ".json"
     nome_csv = "qoe_value.csv"
 
@@ -122,8 +176,9 @@ while cont < quant:
 
     start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
 
-    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,
-                   height, value_qoe)
+    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(ip,diretorio)
+
+    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe)
     apagarArquivos(diretorio, nome_json, nome_video)
 
-    time.sleep(2)
+    time.sleep(10)
