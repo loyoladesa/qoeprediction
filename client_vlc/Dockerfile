@@ -30,11 +30,11 @@ WORKDIR /app/
 
 COPY qoe_meter.py /app
 
+COPY teste_instalacao_itup1203.py /app
+
 COPY itu-p1203-master /app
 
-
-
-CMD ["python3","qoe_meter.py"]
+CMD ["python3","teste_instalacao_itup1203.py"]
 
 
 
