@@ -39,5 +39,28 @@ def salvar(nome_arquivo, texto):
         with open("/home/log.log", "a") as file:
             file.write(e.__str__() + "\n")
             file.close()
+def assistirVideo(diretorio, nome_video):
+    EscreveLog("iniciada função assistir video" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    start = str(datetime.datetime.now())
+    os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    end = str(datetime.datetime.now())
+    EscreveLog("terminada função assistir video" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    return start, end
 
+def medirQoE(diretorio, nome_video, nome_json):
+    EscreveLog("iniciada função medir qoe" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio + nome_json)
+
+    with open(diretorio + nome_json) as file:
+        data = json.load(file)
+    value_qoe = str(data[diretorio + nome_video]["O46"])
+    EscreveLog("terminada função medir qoe" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    return value_qoe
+
+
+diretorio = "/home/"
+nome_video = "video.mp4"
+nome_json = "video.json"
+start,end = assistirVideo(diretorio,nome_video)
+qoe = medirQoE()
 EscreveLog("Teste bem sucedido: " + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
