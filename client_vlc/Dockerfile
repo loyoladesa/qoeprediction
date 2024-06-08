@@ -40,7 +40,7 @@ RUN pip3 install .
 
 
 
-CMD ["python3","teste_instalacao_itup1203.py"]
+CMD ["python3","qoe_meter.py"]
 
 
 

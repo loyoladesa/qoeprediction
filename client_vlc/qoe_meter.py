@@ -1,7 +1,7 @@
-
 # Autor : Sidney Loyola de Sá
 # Projeto Desenvolvido para Analisar QoE a partir de dados de QoS
 # Utilizando Grafos de Causalidade
+
 
 
 import datetime
@@ -10,7 +10,6 @@ import time
 import os
 from pathlib import Path
 from datetime import date
-
 
 def EscreveLog(mensagem, arquivo):
     try:
@@ -21,9 +20,7 @@ def EscreveLog(mensagem, arquivo):
     except:
         print("Erro na Escrita:" + arquivo + " " + mensagem + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}")
 
-
 def salvar(nome_arquivo, texto):
-    #EscreveLog("iniciada função salvar", "/home/log.log")
     try:
         if os.path.isfile(nome_arquivo):
             with open(nome_arquivo, "a") as file:
@@ -36,34 +33,32 @@ def salvar(nome_arquivo, texto):
                 file.close()
 
     except Exception as e:
-        print("Erro de Escrita!" + e.__str__())
+        print("Erro de Escita!" + e.__str__())
         with open("/home/log.log", "a") as file:
             file.write(e.__str__() + "\n")
             file.close()
 
 
-def assistirVideo(diretorio, nome_video,indice):
+def assistirVideo(diretorio, nome_video):
     #EscreveLog("iniciada função assistir video", "/home/log.log")
     start = str(datetime.datetime.now())
-    if indice == 1:
-        os.system("ffmpeg -i https://qoernp.ngrok.app/hls/output.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-    if indice == 2:
-        os.system("ffmpeg -i https://qoernp.ngrok.app/hls/output.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-    if indice == 3:
-        os.system("ffmpeg -i https://qoernp.ngrok.app/hls/output.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-    # os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    # os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    #os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+    os.system("ffmpeg -i https://qoernp.ngrok.app/hls/video_60_180p.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
     end = str(datetime.datetime.now())
 
-    return start, end
+    return start,end
 
 
 def medirQoE(diretorio, nome_video, nome_json):
     #EscreveLog("iniciada função medir qoe", "/home/log.log")
-    os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio + nome_json)
+    EscreveLog("Iniciado FUNÇÃO medir QOE" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    os.system("python3 -m itu_p1203 --accept-notice " + diretorio + nome_video + "  > " + diretorio  + nome_json)
 
     with open(diretorio + nome_json) as file:
         data = json.load(file)
     value_qoe = str(data[diretorio + nome_video]["O46"])
+    EscreveLog("Terminada FUNÇÃO medir QOE" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
     return value_qoe
 
 
@@ -78,7 +73,6 @@ def capturarDadosVideo(diretorio, nome_video):
     size = data_probe['format']['size']
     bitrate = data_probe['format']['bit_rate']
     frames = str(len(data_probe['frames']))
-    EscreveLog(str(data_probe['frames']), diretorio + nome_video + "_frames.json")
     width = "-"
     height = "-"
 
@@ -145,9 +139,6 @@ def capturar_dados_rede(ip,diretorio,nome_ping):
 
     return rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl
 
-
-
-
 def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe):
     #EscreveLog("iniciada função inserir_dataset", "/home/log.log")
     linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe
@@ -155,49 +146,43 @@ def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, dura
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
 
-
-def apagarArquivos(diretorio, nome_json, nome_video,nome_ping):
-    os.system("sudo rm " + diretorio + nome_ping)
+def apagarArquivos(diretorio, nome_json, nome_video):
+    #os.system("sudo rm " + diretorio + "ping.txt")
     os.system("sudo rm " + diretorio + nome_json)
     os.system("sudo rm " + diretorio + nome_video)
     os.system("sudo rm " + diretorio + nome_video + ".json")
     os.system("sudo rm " + diretorio + nome_video + "_frames.json")
 
 
-# parâmetros do Script
+
+#parâmetros do Script
 diretorio = '/home/'
 ip = "189.84.93.121"
 cont = 1
-indice = 1
-quant = 30
+quant = 20
 
 while cont < quant:
-    while indice < 4:
-        EscreveLog("iniciado processo de medir qoe", "/home/log.log")
-        # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
-        complemento = str(cont)
-        cont = cont + 1
-        nome_video = "video_" + complemento + ".mp4"
-        nome_json = "qoe_" + complemento + ".json"
-        nome_csv = "qoe_value.csv"
-        nome_ping = "ping_" + complemento + ".txt"
+    EscreveLog("Iniciado PROCESSO medir QOE" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+    # São parâmetros também, mas são dinâmicos de acordo com o vídeo a ser buscado
+    complemento = str(cont)
+    cont = cont + 1
+    nome_video = "video_" + complemento + ".mp4"
+    nome_json = "qoe_" + complemento + ".json"
+    nome_csv = "qoe_value.csv"
+    nome_ping = "ping_" + complemento + ".txt"
 
-        start, end = assistirVideo(diretorio, nome_video, indice)
+    start, end = assistirVideo(diretorio, nome_video)
 
-        value_qoe = medirQoE(diretorio, nome_video, nome_json)
+    value_qoe = medirQoE(diretorio, nome_video, nome_json)
 
-        start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
+    start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
 
-        rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(
-            ip, diretorio, nome_ping)
+    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(ip,diretorio,nome_ping)
 
-        inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,
-                       height, rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos,
-                       ttl, value_qoe)
-        apagarArquivos(diretorio, nome_json, nome_video,nome_ping)
-        EscreveLog("Complemento = " + complemento, "/home/log.log")
-        EscreveLog("Indice = " + str(indice), "/home/log.log")
-        indice = indice + 1
+    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe)
+    apagarArquivos(diretorio, nome_json, nome_video)
+    EscreveLog("Complemento = " + complemento, "/home/log.log")
+    EscreveLog("Terminado PROCESSO medir QOE - " + "Complemento = " + complemento + f" {datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
+
     time.sleep(60)
-    if indice > 3:
-        indice = 1
+
