@@ -62,5 +62,5 @@ diretorio = "/home/"
 nome_video = "video.mp4"
 nome_json = "video.json"
 start,end = assistirVideo(diretorio,nome_video)
-qoe = medirQoE()
+qoe = medirQoE(diretorio,nome_video,nome_json)
 EscreveLog("Teste bem sucedido: " + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
