@@ -36,6 +36,10 @@ COPY teste_instalacao_itup1203.py /app
 
 COPY itu-p1203-master /app
 
+RUN pip3 install .
+
+
+
 CMD ["python3","teste_instalacao_itup1203.py"]
 
 
