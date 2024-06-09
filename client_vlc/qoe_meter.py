@@ -235,7 +235,7 @@ def get_url_video(escolha_video):
     else:
         url_video = "https://qoernp.ngrok.app/hls/video_60_720p.m3u8"
 
-    return escolha_video
+    return url_video
 
 
 
