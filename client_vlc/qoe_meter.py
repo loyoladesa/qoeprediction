@@ -244,7 +244,7 @@ def get_url_video(escolha_video):
 diretorio = '/home/'
 ip = "189.84.93.121"
 cont = 1
-quant = 13
+quant = 600
 escolha_video = 0
 
 video_assistido = False
