@@ -39,7 +39,7 @@ def salvar(nome_arquivo, texto):
             file.close()
 
 
-def assistirVideo(diretorio, nome_video):
+def assistirVideo(diretorio, nome_video,url_video):
     tentativas = 0
     max_tentativas = 5
     while tentativas < max_tentativas:
@@ -48,7 +48,7 @@ def assistirVideo(diretorio, nome_video):
             start = str(datetime.datetime.now())
             # os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
             # os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-            os.system("ffmpeg -i https://qoernp.ngrok.app/hls/video_60_180p.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+            os.system("ffmpeg -i " + url_video + " -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
             end = str(datetime.datetime.now())
             return start, end
 
@@ -215,13 +215,37 @@ def apagarArquivos(diretorio, nome_json, nome_video,nome_ping,nome_trace):
     os.system("sudo rm " + diretorio + nome_video + ".json")
     os.system("sudo rm " + diretorio + nome_video + "_frames.json")
 
+def get_url_video(escolha_video):
+    url_video = "https://qoernp.ngrok.app/hls/video_20_180p.m3u8"
+
+    if escolha_video == 1:
+        url_video = "https://qoernp.ngrok.app/hls/video_20_360p.m3u8"
+    elif escolha_video == 2:
+        url_video = "https://qoernp.ngrok.app/hls/video_20_720p.m3u8"
+    elif escolha_video == 3:
+        url_video = "https://qoernp.ngrok.app/hls/video_30_180p.m3u8"
+    elif escolha_video == 4:
+        url_video = "https://qoernp.ngrok.app/hls/video_30_360p.m3u8"
+    elif escolha_video == 5:
+        url_video = "https://qoernp.ngrok.app/hls/video_30_720p.m3u8"
+    elif escolha_video == 6:
+        url_video = "https://qoernp.ngrok.app/hls/video_60_180p.m3u8"
+    elif escolha_video == 7:
+        url_video = "https://qoernp.ngrok.app/hls/video_60_360p.m3u8"
+    else:
+        url_video = "https://qoernp.ngrok.app/hls/video_60_720p.m3u8"
+
+    return escolha_video
+
+
 
 
 #parâmetros do Script
 diretorio = '/home/'
 ip = "189.84.93.121"
 cont = 1
-quant = 4
+quant = 13
+escolha_video = 0
 
 video_assistido = False
 qoe_medido = False
@@ -246,8 +270,12 @@ while cont < quant:
 
     if (not video_assistido):
         try:
-            start, end = assistirVideo(diretorio, nome_video)
+            url_video = get_url_video(escolha_video)
+            start, end = assistirVideo(diretorio, nome_video,url_video)
             video_assistido = True
+            escolha_video = escolha_video + 1
+            if (escolha_video > 8) :
+                escolha_video = 0
         except Exception as erro:
             EscreveLog(erro.__str__(), "/home/log.log")
         if video_assistido:
