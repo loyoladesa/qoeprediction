@@ -28,7 +28,7 @@ def salvar(nome_arquivo, texto):
                 file.close()
         else:
             with open(nome_arquivo, "a") as file:
-                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl,qoe_value,hop_1,hop_2,hop_3,hop_4,hop_5,hop_6,hop_7,hop_8,hop_9,hop_10" + "\n")
+                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl,qoe_value,hop_1,hop_2,hop_3,hop_4,hop_5,hop_6,hop_7,hop_8,hop_9,hop_10,hop_11,hop_12,hop_13,hop_14,hop_15" + "\n")
                 file.write(texto + "\n")
                 file.close()
 
@@ -109,10 +109,10 @@ def capturar_dados_rede(ip,diretorio,nome_ping,nome_trace):
         with open(diretorio+nome_trace, 'r') as arquivo:
             linhas = arquivo.readlines()
             for linha in linhas:
-                hops.append(linha)
+                hops.append(linha[:-2])
             hops.pop(0)
             numero_elementos = len(hops)
-            numero_preenchimentos = 10 - numero_elementos
+            numero_preenchimentos = 15 - numero_elementos
 
             while (numero_preenchimentos > 0):
                 hops.append(" ? ")
@@ -160,8 +160,11 @@ def capturar_dados_rede(ip,diretorio,nome_ping,nome_trace):
 
 def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe,hops):
     #EscreveLog("iniciada função inserir_dataset", "/home/log.log")
-    linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe + "," + hops[0] + "," + hops[1] + "," + hops[2] + "," + hops[3] + "," + hops[4] + "," + hops[5] + "," + hops[6] + "," + hops[7] + "," + hops[8] + "," + hops[9]
-    #linha2 = rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_perdidos + "," + pacotes_recebidos + "," + ttl + ","
+    linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe
+    indice = 0
+    while (indice < 15):
+        linha = linha + "," + hops[indice]
+
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
 

@@ -12,7 +12,8 @@ def capturar_dados_rede():
         with open('trace_qoe.txt', 'r') as arquivo:
             linhas = arquivo.readlines()
             for linha in linhas:
-                hops.append(linha)
+                hops.append(linha[:-2])
+                print(linha[-2])
             hops.pop(0)
             numero_elementos = len(hops)
             numero_preenchimentos = 10 - numero_elementos

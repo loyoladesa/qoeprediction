@@ -32,15 +32,13 @@ RUN apt-get install -y traceroute
 
 WORKDIR /app/
 
-COPY qoe_meter.py /app
-
 #COPY teste_instalacao_itup1203.py /app
 
 COPY itu-p1203-master /app
 
 RUN pip3 install .
 
-
+COPY qoe_meter.py /app
 
 CMD ["python3","qoe_meter.py"]
 
