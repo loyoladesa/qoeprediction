@@ -17,7 +17,7 @@ def capturar_dados_rede():
 
 
     try:
-        with open('ping2.txt', 'r') as arquivo:
+        with open('../ping2.txt', 'r') as arquivo:
             linhas = arquivo.readlines()
             cont = 0
 

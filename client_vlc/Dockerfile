@@ -28,6 +28,8 @@ RUN apt-get -y install iproute2
 
 RUN apt-get install -y iputils-ping
 
+RUN apt-get install -y traceroute
+
 WORKDIR /app/
 
 COPY qoe_meter.py /app

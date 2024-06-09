@@ -28,7 +28,7 @@ def salvar(nome_arquivo, texto):
                 file.close()
         else:
             with open(nome_arquivo, "a") as file:
-                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl,qoe_value" + "\n")
+                file.write("start,end,video,start_time,duration,size,bitrate,frames,width,heigth,rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl,qoe_value,hop_1,hop_2,hop_3,hop_4,hop_5,hop_6,hop_7,hop_8,hop_9,hop_10" + "\n")
                 file.write(texto + "\n")
                 file.close()
 
@@ -90,9 +90,10 @@ def capturarDadosVideo(diretorio, nome_video):
 
     return start_time, duration, size, bitrate, frames, width, height
 
-def capturar_dados_rede(ip,diretorio,nome_ping):
+def capturar_dados_rede(ip,diretorio,nome_ping,nome_trace):
     #EscreveLog("iniciada função capturar_dados_rede", "/home/log.log")
     os.system("ping -c 4 " + ip + " > " + diretorio + nome_ping)
+    os.system("traceroute -m 10 " + ip + " > " + diretorio + nome_trace)
 
     rtt_min = ""
     rtt_avg = ""
@@ -101,7 +102,25 @@ def capturar_dados_rede(ip,diretorio,nome_ping):
     pacotes_recebidos = ""
     pacotes_perdidos = ""
     ttl = ""
+    hops = []
 
+
+    try:
+        with open(diretorio+nome_trace, 'r') as arquivo:
+            linhas = arquivo.readlines()
+            for linha in linhas:
+                hops.append(linha)
+            hops.pop(0)
+            numero_elementos = len(hops)
+            numero_preenchimentos = 10 - numero_elementos
+
+            while (numero_preenchimentos > 0):
+                hops.append(" ? ")
+                numero_preenchimentos = numero_preenchimentos - 1
+
+    except Exception as erro:
+        print('Ocorreu um erro...')
+        print(erro)
 
     try:
         with open(diretorio+nome_ping, 'r') as arquivo:
@@ -137,17 +156,18 @@ def capturar_dados_rede(ip,diretorio,nome_ping):
         print('Ocorreu um erro...')
         print(erro)
 
-    return rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl
+    return rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,hops
 
-def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe):
+def inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl,value_qoe,hops):
     #EscreveLog("iniciada função inserir_dataset", "/home/log.log")
-    linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe
+    linha = start + "," + end + "," + nome_video + "," + start_time + "," + duration + "," + size + "," + bitrate + "," + frames + "," + width + "," + height + "," + rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_recebidos + "," + pacotes_perdidos + "," + ttl + "," + value_qoe + "," + hops[0] + "," + hops[1] + "," + hops[2] + "," + hops[3] + "," + hops[4] + "," + hops[5] + "," + hops[6] + "," + hops[7] + "," + hops[8] + "," + hops[9]
     #linha2 = rtt_min + "," + rtt_avg + "," + rtt_max + "," + pacotes_transmitidos + "," + pacotes_perdidos + "," + pacotes_recebidos + "," + ttl + ","
     nome_arquivo = diretorio + nome_csv
     salvar(nome_arquivo, linha)
 
-def apagarArquivos(diretorio, nome_json, nome_video):
-    #os.system("sudo rm " + diretorio + "ping.txt")
+def apagarArquivos(diretorio, nome_json, nome_video,nome_ping,nome_trace):
+    os.system("sudo rm " + diretorio + nome_ping)
+    os.system("sudo rm " + diretorio + nome_trace)
     os.system("sudo rm " + diretorio + nome_json)
     os.system("sudo rm " + diretorio + nome_video)
     os.system("sudo rm " + diretorio + nome_video + ".json")
@@ -159,7 +179,7 @@ def apagarArquivos(diretorio, nome_json, nome_video):
 diretorio = '/home/'
 ip = "189.84.93.121"
 cont = 1
-quant = 20
+quant = 4
 
 while cont < quant:
     EscreveLog("Iniciado PROCESSO medir QOE" + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
@@ -170,6 +190,7 @@ while cont < quant:
     nome_json = "qoe_" + complemento + ".json"
     nome_csv = "qoe_value.csv"
     nome_ping = "ping_" + complemento + ".txt"
+    nome_trace = "trace_" + complemento + ".txt"
 
     start, end = assistirVideo(diretorio, nome_video)
 
@@ -177,10 +198,10 @@ while cont < quant:
 
     start_time, duration, size, bitrate, frames, width, height = capturarDadosVideo(diretorio, nome_video)
 
-    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl = capturar_dados_rede(ip,diretorio,nome_ping)
+    rtt_min, rtt_avg, rtt_max, pacotes_transmitidos, pacotes_recebidos, pacotes_perdidos, ttl, hops = capturar_dados_rede(ip,diretorio,nome_ping,nome_trace)
 
-    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe)
-    apagarArquivos(diretorio, nome_json, nome_video)
+    inserirDataset(diretorio, nome_csv, start, end, nome_video, start_time, duration, size, bitrate, frames, width,height,rtt_min,rtt_avg,rtt_max,pacotes_transmitidos,pacotes_recebidos,pacotes_perdidos,ttl, value_qoe, hops)
+    apagarArquivos(diretorio, nome_json, nome_video,nome_ping,nome_trace)
     EscreveLog("Complemento = " + complemento, "/home/log.log")
     EscreveLog("Terminado PROCESSO medir QOE - " + "Complemento = " + complemento + f" {datetime.datetime.now():%d/%b/%Y-%H:%M:%S}", "/home/log.log")
 
