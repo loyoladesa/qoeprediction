@@ -243,8 +243,8 @@ def get_url_video(escolha_video):
 #parâmetros do Script
 diretorio = '/home/'
 ip = "189.84.93.121"
-cont = 1
-quant = 600
+cont = 600
+quant = 3500
 escolha_video = 0
 
 video_assistido = False
