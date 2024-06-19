@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../pythonGerenciadorSenhas/.idea/pythonGerenciadorSenhas.iml" filepath="$PROJECT_DIR$/../pythonGerenciadorSenhas/.idea/pythonGerenciadorSenhas.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/qoeprediction.iml" filepath="$PROJECT_DIR$/.idea/qoeprediction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../stunning_apps_python/.idea/stuninng_apps_python.iml" filepath="$PROJECT_DIR$/../stunning_apps_python/.idea/stuninng_apps_python.iml" />
     </modules>
   </component>
 </project>

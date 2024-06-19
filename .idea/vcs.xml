@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../pythonGerenciadorSenhas" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../stunning_apps_python" vcs="Git" />
   </component>
 </project>
