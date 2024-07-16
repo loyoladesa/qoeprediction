@@ -1,0 +1,6 @@
+
+Rastreando a rota para google.com [142.250.78.206]
+ com no m�ximo 10 saltos:
+
+  1     1 ms     1 ms     6 ms  192.168.0.1 
+  2     5 ms     7 ms     3 ms  10.5.7.1 

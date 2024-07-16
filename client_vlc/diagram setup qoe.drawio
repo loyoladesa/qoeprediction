@@ -1,0 +1,163 @@
+<mxfile host="app.diagrams.net" modified="2024-06-09T21:45:46.471Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="820tRc2lE0flJX5yb1Dj" version="24.2.5" type="device" pages="2">
+  <diagram name="Página-1" id="BvGNiBSuOyHkXGpIOrg0">
+    <mxGraphModel dx="2261" dy="738" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;endArrow=classic;endFill=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-1" target="0-n9_81D-jvsJgkOnpGd-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="140" y="190" />
+              <mxPoint x="140" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-1" value="Video" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-3" target="0-n9_81D-jvsJgkOnpGd-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-3" value="VLC" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-5" target="0-n9_81D-jvsJgkOnpGd-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-5" target="0-n9_81D-jvsJgkOnpGd-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-5" value="Video_Saida" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-7" target="0-n9_81D-jvsJgkOnpGd-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-7" value="itu p.1203" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-9" value="Valor QoE" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="0-n9_81D-jvsJgkOnpGd-11" target="0-n9_81D-jvsJgkOnpGd-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-11" value="ffprobe" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-13" value="Informações de Stall e delay_start" style="whiteSpace=wrap;html=1;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="0-n9_81D-jvsJgkOnpGd-15" target="0-n9_81D-jvsJgkOnpGd-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-15" value="&lt;h1&gt;Armazenamento&lt;/h1&gt;&lt;p&gt;Devo armazenar os vídeos, ou somente os valores de QoE, substituindo o vídeo de saída a cada teste?&lt;/p&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="240" y="10" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-17" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="60" y="180" as="sourcePoint" />
+            <mxPoint x="140" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-18" value="IPERF" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-60" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0-n9_81D-jvsJgkOnpGd-19" value="&lt;h1&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Dúvidas&lt;/span&gt;&lt;/h1&gt;&lt;h1&gt;&lt;span style=&quot;background-color: initial; font-size: 12px; font-weight: normal;&quot;&gt;Duração dos Vídeos&lt;/span&gt;&lt;br&gt;&lt;/h1&gt;&lt;p&gt;Qualidade dos Vídeos&lt;/p&gt;&lt;p&gt;Local de Armazenamento&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=default;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="540" y="10" width="190" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HrIE2O66E26Bj0u_6yJ9" name="qoe_meter">
+    <mxGraphModel dx="1434" dy="738" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-1" target="VuxC4OAYUssjFTpj9Fmf-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-1" target="VuxC4OAYUssjFTpj9Fmf-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-1" value="Inicio" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-2" target="VuxC4OAYUssjFTpj9Fmf-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-7" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;True&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VuxC4OAYUssjFTpj9Fmf-6">
+          <mxGeometry x="-0.1" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-2" target="VuxC4OAYUssjFTpj9Fmf-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="730" y="260" />
+              <mxPoint x="730" y="1540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-23" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;False&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="VuxC4OAYUssjFTpj9Fmf-22">
+          <mxGeometry x="0.1262" y="4" relative="1" as="geometry">
+            <mxPoint x="-114" y="-753" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-2" value="Enquanto houver medições" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-5" target="VuxC4OAYUssjFTpj9Fmf-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-5" value="Definir Parametros" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-8" target="VuxC4OAYUssjFTpj9Fmf-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-8" value="Assistir Video" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="510" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-10" target="VuxC4OAYUssjFTpj9Fmf-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-10" value="Medir QoE" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-12" target="VuxC4OAYUssjFTpj9Fmf-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-12" value="Capturar Dados Video" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="790" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-14" target="VuxC4OAYUssjFTpj9Fmf-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-14" value="Capturar Dados da Rede do Cliente" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-16" target="VuxC4OAYUssjFTpj9Fmf-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-16" value="Inserir Dataset" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1070" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VuxC4OAYUssjFTpj9Fmf-18" target="VuxC4OAYUssjFTpj9Fmf-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="1240" />
+              <mxPoint x="180" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-18" value="Apagar Arquivos Intermediarios" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VuxC4OAYUssjFTpj9Fmf-21" value="Fim" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1510" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
