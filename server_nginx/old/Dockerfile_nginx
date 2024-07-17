@@ -1,0 +1,18 @@
+FROM nginx:latest
+
+LABEL maintainer="Sidney Loyola"
+
+WORKDIR /app/
+
+COPY videos /etc/nginx/sites-available/videos
+
+#RUN sudo ln -s /etc/nginx/sites-available/videos /etc/nginx/sites-enabled/
+
+#RUN sudo service nginx reload
+
+#RUN sudo service nginx start
+
+COPY hls /var/www/html/hls
+
+EXPOSE 80
+
