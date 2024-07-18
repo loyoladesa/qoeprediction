@@ -1,0 +1,36 @@
+# Instruções para o programa
+nome: "Sidney"
+idade: 45
+
+# Este objeto descreve o nosso projeto
+objeto:
+ versao: 2
+ arquivo: "teste.txt"
+
+versao: 2
+versao_completa: 3.14
+
+string_sem_aspas: Digite um texto aqui
+texto: "Digite um texto aqui"
+
+nulo: ~
+nulo_dois: null
+
+verdadeiro: True
+verdadeiro_2: On
+
+falso: False
+falso_2: Off
+
+primeira: [1,2,3,4]
+
+segunda: 
+ - 1
+ - 2
+ - 4
+
+obj: {a: 1, b: 2, c: 3}
+
+obj_2:
+ a: 1
+ b: 2
