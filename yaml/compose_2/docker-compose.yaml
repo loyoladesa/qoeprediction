@@ -25,4 +25,4 @@ networks:
     wordpress-network:
       driver: bridge
 volumes:
-  db_data: {}
+    db_data: {}
