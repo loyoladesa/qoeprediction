@@ -1,0 +1,19 @@
+version: "3.8"
+
+name: qoeprediction
+
+services:
+  ngrok:
+    image: ngrok/ngrok:latest
+    environment:
+      - NGROK_AUTHTOKEN=2fcZ1KzNGtWXIfMPdcPIqsw6irN_61L8B67QBYThwTYWzFJ5n
+    command: http --domain=qoernp.ngrok.app 5215
+    network_mode: host
+    tty: true
+    
+
+  
+     
+
+
+  

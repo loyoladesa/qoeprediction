@@ -1,0 +1,7 @@
+authtoken: 2fcZ1KzNGtWXIfMPdcPIqsw6irN_61L8B67QBYThwTYWzFJ5n
+
+tunnels:
+  qoernp:
+    proto: http
+    addr: 5001
+    domain: qoernp.ngrok.app
