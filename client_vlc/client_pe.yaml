@@ -1,0 +1,16 @@
+apiversion: v1
+kind: Pod
+metadata:
+ name: test-qoe-pe
+spec:
+ nodeName: ids-pe
+ containers:
+ - image: loyoladesa/test_qoe:1.12
+   name: test-container
+   volumeMounts:
+   - mountPath: /home 
+     name: dados-qoe-pe
+ volumes:
+ - name: dados-qoe-pe
+   hostPath:
+    path: /data 
