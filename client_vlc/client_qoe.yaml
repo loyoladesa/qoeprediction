@@ -3,9 +3,9 @@ kind: Pod
 metadata:
  name: test-qoe
 spec:
- kubernetes.io/hostname: ids-rn
+ nodeName: ids-rn
  containers:
- - image: loyoladesa/test_qoe:1.11.2
+ - image: loyoladesa/test_qoe:1.12
    name: test-container
    volumeMounts:
    - mountPath: /home 
