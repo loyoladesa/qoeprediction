@@ -34,7 +34,7 @@ WORKDIR /app/
 
 #COPY teste_instalacao_itup1203.py /app
 
-COPY itu-p1203-master /app
+COPY itu-p1203 /app
 
 RUN pip3 install .
 
