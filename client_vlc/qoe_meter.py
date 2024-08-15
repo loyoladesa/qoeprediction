@@ -243,7 +243,7 @@ def get_url_video(escolha_video):
 
 #parâmetros do Script
 diretorio = '/home/'
-ip = "200.159.252.130"
+ip = "200.159.252.130" # ip ids-rj
 cont = 1
 quant = 3500
 escolha_video = 0
