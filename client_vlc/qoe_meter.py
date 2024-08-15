@@ -1,6 +1,7 @@
 # Autor : Sidney Loyola de Sá
 # Projeto Desenvolvido para Analisar QoE a partir de dados de QoS
 # Utilizando Grafos de Causalidade
+# Versão 1.0
 
 
 
@@ -242,8 +243,8 @@ def get_url_video(escolha_video):
 
 #parâmetros do Script
 diretorio = '/home/'
-ip = "189.84.93.121"
-cont = 2347
+ip = "200.159.252.130"
+cont = 1
 quant = 3500
 escolha_video = 0
 
