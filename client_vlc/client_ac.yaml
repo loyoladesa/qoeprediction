@@ -1,0 +1,16 @@
+apiversion: v1
+kind: Pod
+metadata:
+ name: test-qoe-ac
+spec:
+ nodeName: vm1-ac
+ containers:
+ - image: loyoladesa/test_qoe:1.12
+   name: test-container
+   volumeMounts:
+   - mountPath: /home 
+     name: dados-qoe-ac
+ volumes:
+ - name: dados-qoe-ac
+   hostPath:
+    path: /data 
