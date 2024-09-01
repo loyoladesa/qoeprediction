@@ -100,7 +100,7 @@ class OrganizaDadosRNP:
 
         for origem in pop_origem:
             pasta = diretorio_arquivos_a_serem_salvos + '/' + origem + '/'
-            os.mkdir(pasta)
+
             print('Pasta criada!',origem)
             for destino in pop_destino:
                 caminho = local_arquivos_a_serem_processados + origem + '/' + destino
