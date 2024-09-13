@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../pythonGerenciadorSenhas" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../stunning_apps_python" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../PensamentoComputacional" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/client_vlc/itu-p1203" vcs="Git" />
   </component>
 </project>
