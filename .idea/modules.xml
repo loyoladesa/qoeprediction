@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../PensamentoComputacional/.idea/PensamentoComputacional.iml" filepath="$PROJECT_DIR$/../PensamentoComputacional/.idea/PensamentoComputacional.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/qoeprediction.iml" filepath="$PROJECT_DIR$/.idea/qoeprediction.iml" />
     </modules>
   </component>
