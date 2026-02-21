@@ -72,16 +72,18 @@ def assistirVideo(diretorio, nome_video,url_video):
     raise Exception(falha_assistir)
 
 arquivo = "registro_logs.txt"
-mensagem = "log: medir_itup1203"
+mensagem = "log: medir_itup1203 - " + f"{datetime.datetime.now():%d/%b/%Y-%H:%M:%S} - "
 
 
 nome_arquivo = "arquivo.csv"
 texto = "Primeira Linha"
 diretorio = "/home/"
 
-url_video = "https://qoernp.ngrok.app/hls/video_60_720p.m3u8"
+url_video = "http://service-5:5215/hls/video_20_180p.m3u8"
 nome_video = "video_1.mp4"
 
 
-EscreveLog(mensagem,arquivo)
+EscreveLog(mensagem + url_video,arquivo)
 salvar(nome_arquivo,texto)
+
+start, end = assistirVideo(diretorio, nome_video,url_video)
