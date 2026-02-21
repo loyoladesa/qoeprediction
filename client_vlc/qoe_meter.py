@@ -217,24 +217,25 @@ def apagarArquivos(diretorio, nome_json, nome_video,nome_ping,nome_trace):
     os.system("sudo rm " + diretorio + nome_video + "_frames.json")
 
 def get_url_video(escolha_video):
-    url_video = "https://qoernp.ngrok.app/hls/video_20_180p.m3u8"
+    dominio = "http://service-5:5215"
+    url_video = dominio+"/hls/video_20_180p.m3u8"
 
     if escolha_video == 1:
-        url_video = "https://qoernp.ngrok.app/hls/video_20_360p.m3u8"
+        url_video = dominio+"/hls/video_20_360p.m3u8"
     elif escolha_video == 2:
-        url_video = "https://qoernp.ngrok.app/hls/video_20_720p.m3u8"
+        url_video = dominio+"/hls/video_20_720p.m3u8"
     elif escolha_video == 3:
-        url_video = "https://qoernp.ngrok.app/hls/video_30_180p.m3u8"
+        url_video = dominio+"/hls/video_30_180p.m3u8"
     elif escolha_video == 4:
-        url_video = "https://qoernp.ngrok.app/hls/video_30_360p.m3u8"
+        url_video = dominio+"/hls/video_30_360p.m3u8"
     elif escolha_video == 5:
-        url_video = "https://qoernp.ngrok.app/hls/video_30_720p.m3u8"
+        url_video = dominio+"/hls/video_30_720p.m3u8"
     elif escolha_video == 6:
-        url_video = "https://qoernp.ngrok.app/hls/video_60_180p.m3u8"
+        url_video = dominio+"/hls/video_60_180p.m3u8"
     elif escolha_video == 7:
-        url_video = "https://qoernp.ngrok.app/hls/video_60_360p.m3u8"
+        url_video = dominio+"/hls/video_60_360p.m3u8"
     else:
-        url_video = "https://qoernp.ngrok.app/hls/video_60_720p.m3u8"
+        url_video = dominio+"/hls/video_60_720p.m3u8"
 
     return url_video
 
