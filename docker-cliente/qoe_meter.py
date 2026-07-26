@@ -52,7 +52,8 @@ def assistirVideo(diretorio, nome_video,url_video):
             start = str(datetime.datetime.now())
             # os.system("ffmpeg -i https://cdn.api.video/vod/vi4blUQJFrYWbaG44NChkH27/mp4/1080/source.mp4 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
             # os.system("ffmpeg -i http://192.168.0.109:8000/hls/stream.m3u8 -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
-            os.system("ffmpeg -i " + url_video + " -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+            #os.system("ffmpeg -i " + url_video + " -c copy -bsf:a aac_adtstoasc " + diretorio + nome_video)
+            os.system("vlc "+ url_video + " --sout '#std{access=file,mux=mp4,dst=" + diretorio + nome_video + "}' vlc://quit")
             end = str(datetime.datetime.now())
             return start, end
 
