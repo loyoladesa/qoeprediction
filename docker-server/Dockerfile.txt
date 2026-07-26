@@ -1,0 +1,20 @@
+FROM ubuntu:22.04
+
+# Evita prompts interativos
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Atualiza repositórios e instala pacotes básicos
+RUN apt-get update && \
+    apt-get install -y \
+        vim \
+        curl \
+        wget \
+        git \
+        build-essential \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /app
+
+CMD ["/bin/bash"]
